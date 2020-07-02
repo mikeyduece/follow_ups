@@ -1,4 +1,5 @@
-class Conversation < ApplicationRecord
-  belongs_to :user
-  belongs_to :patient
+module Conversation
+  def self.table_name_prefix
+    :conversation_
+  end
 end
