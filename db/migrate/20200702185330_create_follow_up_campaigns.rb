@@ -1,7 +1,7 @@
 class CreateFollowUpCampaigns < ActiveRecord::Migration[6.0]
   def change
     create_table :follow_up_campaigns do |t|
-      t.integer :time_frame, default: 0, index: true
+      t.string :name, index: true
       t.timestamps
     end
 

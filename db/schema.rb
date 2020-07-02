@@ -51,10 +51,10 @@ ActiveRecord::Schema.define(version: 2020_07_02_185330) do
   end
 
   create_table "follow_up_campaigns", force: :cascade do |t|
-    t.integer "time_frame", default: 0
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["time_frame"], name: "index_follow_up_campaigns_on_time_frame"
+    t.index ["name"], name: "index_follow_up_campaigns_on_name"
   end
 
   create_table "patients", force: :cascade do |t|
