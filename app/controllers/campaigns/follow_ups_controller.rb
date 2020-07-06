@@ -2,11 +2,7 @@ module Campaigns
   class FollowUpCampainsController < ApplicationController
 
     def create
-      Twilio::FollowUpService.call(params) do |success, failure|
-        success.call { 'Created campaign' }
-        failure.call { |_error| 'Something went wrong' }
-      end
-
+      Campaigns::FollowUpWorker.perform_async(params[:start_at], params[:end_at], params[:name])
     end
   end
 end
