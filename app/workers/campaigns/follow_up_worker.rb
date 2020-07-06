@@ -3,8 +3,8 @@ module Campaigns
     include Sidekiq::Worker
     sidekiq_options retry: true, count: 3
 
-    def perform(start_at, end_at, name)
-      Twilio::FollowUpService.call(start_at, end_at, name)
+    def perform(count, interval, name)
+      Twilio::FollowUpService.call(count, interval, name)
     end
   end
 end

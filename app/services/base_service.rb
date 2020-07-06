@@ -1,9 +1,9 @@
 class BaseService
-  attr_reader :start_at, :end_at, :name
+  attr_reader :count, :interval, :name
 
-  def initialize(start_at, end_at, name)
-    @start_at = start_at
-    @end_at = end_at
+  def initialize(count, interval, name)
+    @count = count
+    @interval = interval
     @name = name
   end
 

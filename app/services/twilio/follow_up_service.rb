@@ -21,7 +21,7 @@ module Twilio
     end
 
     def patients
-      Patient.by_follow_up_interval(start_at, end_at)
+      Patient.by_follow_up_interval(count, interval)
     end
 
     def campaign
