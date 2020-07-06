@@ -11,7 +11,7 @@ module Twilio
     def send_messages
       campaign.patients.allowed.find_each do |patient|
         client = client(patient)
-        client.messages.create(message)
+        client.send_message
       end
     end
 
