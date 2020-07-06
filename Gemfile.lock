@@ -169,6 +169,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  faraday
   listen (~> 3.0.5)
   pg (>= 0.18, < 2.0)
   pry-rails

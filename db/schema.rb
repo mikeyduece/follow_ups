@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_185330) do
+ActiveRecord::Schema.define(version: 2020_07_06_133451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 2020_07_02_185330) do
     t.index ["name"], name: "index_follow_up_campaigns_on_name"
   end
 
+  create_table "patient_follow_up_campaigns", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "follow_up_campaign_id", null: false
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["follow_up_campaign_id"], name: "index_patient_follow_up_campaigns_on_follow_up_campaign_id"
+    t.index ["patient_id", "follow_up_campaign_id"], name: "idx_patient_follow_ups_on_patient_and_campaign"
+    t.index ["patient_id"], name: "index_patient_follow_up_campaigns_on_patient_id"
+    t.index ["status"], name: "index_patient_follow_up_campaigns_on_status"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -82,4 +94,6 @@ ActiveRecord::Schema.define(version: 2020_07_02_185330) do
   add_foreign_key "conversation_conversations", "patients"
   add_foreign_key "conversation_conversations", "users"
   add_foreign_key "conversation_messages", "conversation_conversations", column: "conversation_id"
+  add_foreign_key "patient_follow_up_campaigns", "follow_up_campaigns"
+  add_foreign_key "patient_follow_up_campaigns", "patients"
 end
