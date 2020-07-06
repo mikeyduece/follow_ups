@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_06_133451) do
+ActiveRecord::Schema.define(version: 2020_07_06_190403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.boolean "default", default: true
+    t.string "line1", null: false
+    t.string "line2"
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zipcode", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["latitude", "longitude", "owner_id", "owner_type"], name: "idx_lat_long_on_owner"
+    t.index ["latitude", "longitude"], name: "index_addresses_on_latitude_and_longitude"
+    t.index ["owner_type", "owner_id"], name: "index_addresses_on_owner_type_and_owner_id"
+  end
 
   create_table "care_requests", force: :cascade do |t|
     t.integer "status", default: 0, null: false

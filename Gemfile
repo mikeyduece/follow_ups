@@ -19,6 +19,7 @@ gem 'redis', '~> 3.0'
 gem 'sidekiq'
 gem 'twilio-ruby'
 gem 'faraday'
+gem 'geocoder'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
