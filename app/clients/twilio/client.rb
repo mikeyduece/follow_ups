@@ -1,8 +1,7 @@
 module Twilio
   class Client < Base
-
     def send_message
-      client.studio.v2.flows('FW3df95bbc514da4c1214241a71fed2674').executions.create(from: credentials[:twilio_number], to: patient.phone, parameters: '{"name": "Mike" }')
+      client.studio.v2.flows(credentials[:twilio_studio_flow_sid]).executions.create(from: credentials[:twilio_number], to: patient.phone, parameters: '{"name": "Mike" }')
     end
 
     private
