@@ -5,10 +5,14 @@ class Patient < ApplicationRecord
   has_many :patient_follow_up_campaigns, dependent: :destroy
   has_many :follow_up_campaigns, through: :patient_follow_up_campaigns
 
+  scope :allowed, -> {
+    joins(:patient_follow_up_campaigns).where(patient_follow_up_campaigns: { status: PatientFollowUpCampaign.statuses[:allowed] })
+  }
+
   scope :by_follow_up_interval, ->(count, interval) {
     time_interval = Time.now.utc - count.send(interval)
     joins(:care_requests)
-       .where("care_requests.updated_at BETWEEN :end_at AND :start_at",
-              end_at: time_interval.send("end_of_#{interval}"), start_at: time_interval.send("beginning_of_#{interval}"))
+       .where("(care_requests.updated_at BETWEEN :start_at AND :end_at) AND (care_requests.status = :status)",
+              end_at: time_interval.end_of_day, start_at: time_interval.beginning_of_day, status: CareRequest.statuses[:complete])
   }
 end
