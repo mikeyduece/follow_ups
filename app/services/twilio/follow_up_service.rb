@@ -1,13 +1,9 @@
 module Twilio
   class FollowUpService < BaseService
 
-    def call(&block)
+    def call
       set_patients
       send_messages
-
-      yield
-    rescue StandardError => e
-      yield(e)
     end
 
     private
@@ -25,11 +21,11 @@ module Twilio
     end
 
     def patients
-      Patient.by_follow_up_interval(1,3)
+      Patient.by_follow_up_interval(start_at, end_at)
     end
 
     def campaign
-      FollowUpCampaign.create(name: params[:name])
+      @campaign ||= FollowUpCampaign.find_or_create_by(name: name)
     end
 
     def message
@@ -37,7 +33,7 @@ module Twilio
     end
 
     def client(patient)
-      @client ||= Twilio::Client.new(patient: patient)
+      Twilio::Client.new(patient: patient)
     end
   end
 end
