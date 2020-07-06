@@ -9,9 +9,11 @@ module Twilio
     private
 
     def send_messages
-      campaign.patients.allowed.find_each do |patient|
+      campaign.patients.find_each do |patient|
+        lat, long = set_coords(patient)
+
         client = client(patient)
-        client.send_message
+        client.send_message(lat: lat, long: long)
       end
     end
 
@@ -20,8 +22,14 @@ module Twilio
       campaign.patients.reload
     end
 
+    def set_coords(patient)
+      address = patient.default_address
+
+      return address.latitude, address.longitude
+    end
+
     def patients
-      Patient.by_follow_up_interval(count, interval)
+      Patient.allowed.by_follow_up_interval(count, interval)
     end
 
     def campaign

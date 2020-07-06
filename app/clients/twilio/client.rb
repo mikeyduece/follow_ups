@@ -1,7 +1,9 @@
 module Twilio
   class Client < Base
-    def send_message
-      client.studio.v2.flows(credentials[:twilio_studio_flow_sid]).executions.create(from: credentials[:twilio_number], to: patient.phone, parameters: '{"name": "Mike" }')
+    def send_message(opts = {})
+      client.studio.v2.flows(credentials[:twilio_studio_flow_sid]).executions
+         .create(from: credentials[:twilio_number], to: patient.phone,
+                 parameters: { "latitude": "#{opts[:lat]}", "longitude": "#{opts[:long]}" })
     end
 
     private
