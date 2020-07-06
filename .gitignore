@@ -15,3 +15,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+/config/master.key
+
+# Ignore IntelliJ idea directory
+.idea/
+.generators
