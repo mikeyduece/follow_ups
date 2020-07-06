@@ -25,7 +25,7 @@ module Twilio
     end
 
     def campaign
-      @campaign ||= FollowUpCampaign.find_or_create_by(name: name)
+      @campaign ||= FollowUpCampaign.find_or_create_by(name: "#{count} #{interval} follow up #{Time.now.utc.to_date}")
     end
 
     def message
